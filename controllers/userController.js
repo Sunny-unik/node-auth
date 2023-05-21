@@ -1,4 +1,4 @@
-import userSchema from '../models/userSchema';
+import userSchema from '../models/userSchema.js';
 
 export default class UserController {
   static async getUsers(req, res) {

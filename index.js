@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import connectDb from './db/index.js';
-import userRouter from './routes/userRoutes.js/index.js';
+import userRouter from './routes/userRoutes.js';
 
 const app = express();
 dotenv.config();

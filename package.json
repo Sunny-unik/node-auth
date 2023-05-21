@@ -2,9 +2,11 @@
   "name": "auth",
   "version": "1.0.0",
   "description": "Node app includes jwt, secure cookie, session management and email verification via otp.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "dev": "node --watch ."
   },
   "repository": {
     "type": "git",
