@@ -18,6 +18,7 @@ const userValidations = {
           'Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long',
       },
     },
+    otp: { type: 'string' },
   },
   required: ['name', 'email', 'password'],
   additionalProperties: false,
@@ -25,6 +26,10 @@ const userValidations = {
 
 export default function UserValidation(req, res, next) {
   !ajv.validate(userValidations, req.body)
-    ? res.json({ error: ajv.errors })
+    ? res.send({
+        error: ajv.errors,
+        TimeStamp: Date(),
+        handlerLocation: 'UserValidation',
+      })
     : next();
 }

@@ -7,9 +7,10 @@ export default async () => {
       useUnifiedTopology: true,
     });
     const { host, port, name } = conn.connection;
+
     console.log(`MongoDB Connected at mongodb://${host}/${port}, DB: ${name}`);
   } catch (error) {
-    console.error(`Error: ${error}`);
+    console.error('\x1b[31m%s\x1b[0m', `Error: ${error}`);
     process.exit();
   }
 };

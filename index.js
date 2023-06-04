@@ -24,7 +24,7 @@ app.use('/user', userRouter);
 
 app.listen(port, () =>
   console.log(
-    'app is live on http://localhost:' + port,
-    'process id:' + process.pid
+    '\x1b[34m%s\x1b[0m',
+    'App is live on http://localhost:' + port + ' process_id:' + process.pid
   )
 );
