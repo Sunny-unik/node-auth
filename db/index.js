@@ -6,7 +6,8 @@ export default async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    const { host, port, name } = conn.connection;
+    console.log(`MongoDB Connected at mongodb://${host}/${port}, DB: ${name}`);
   } catch (error) {
     console.error(`Error: ${error}`);
     process.exit();
