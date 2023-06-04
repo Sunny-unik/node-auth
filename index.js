@@ -18,8 +18,13 @@ app.use(
 app.use(helmet());
 app.use(express.json());
 
-connectDb();
+connectDb(); // database connection
 
 app.use('/user', userRouter);
 
-app.listen(port, () => console.log('app is live on http://localhost:' + port, 'process id:' + process.pid));
+app.listen(port, () =>
+  console.log(
+    'app is live on http://localhost:' + port,
+    'process id:' + process.pid
+  )
+);
