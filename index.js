@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import connectDb from './db/index.js';
 import userRouter from './routes/userRoutes.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser());
 app.use(helmet());
 app.use(express.json());
 

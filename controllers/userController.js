@@ -1,6 +1,7 @@
 import SendMail from '../services/mailer.js';
 import userSchema from '../models/userSchema.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const randomNum = Math.floor(Math.random() * 1000000).toString();
 const otp =
@@ -69,6 +70,34 @@ export default class UserController {
         TimeStamp: Date(),
         handlerLocation: 'UserController.createUser',
       });
+    }
+  }
+
+  static async loginUser(req, res) {
+    const payload = await userSchema.findOne({
+      $or: [{ email: req.body.email }, { name: req.body.name }],
+    });
+
+    try {
+      const match = await bcrypt.compare(req.body.password, payload.password);
+      const accessToken = jwt.sign(
+        JSON.parse(JSON.stringify(payload)),
+        process.env.TOKEN_SECRET,
+        { expiresIn: '7d' }
+      );
+
+      if (match)
+        res
+          .cookie('authToken', accessToken, {
+            sameSite: 'strict',
+            path: '/',
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            httpOnly: true,
+          })
+          .send({ data: payload, message: 'Login Success' });
+      else res.send({ message: 'Wrong Password' });
+    } catch (e) {
+      res.send({ error: e });
     }
   }
 }
