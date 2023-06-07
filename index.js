@@ -3,8 +3,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import connectDb from './db/index.js';
-import userRouter from './routes/userRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import cookieParser from 'cookie-parser';
+import auth from './middleware/auth.js';
 
 const app = express();
 dotenv.config();
@@ -22,7 +23,8 @@ app.use(express.json());
 
 connectDb(); // database connection
 
-app.use('/user', userRouter);
+app.get('/', auth, (req, res) => res.send(req.decoded));
+app.use('/user', userRoutes);
 
 app.listen(port, () =>
   console.log(

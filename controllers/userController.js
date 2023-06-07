@@ -74,12 +74,15 @@ export default class UserController {
   }
 
   static async loginUser(req, res) {
-    const payload = await userSchema.findOne({
-      $or: [{ email: req.body.email }, { name: req.body.name }],
-    });
+    const { email, name, password } = req.body;
 
     try {
-      const match = await bcrypt.compare(req.body.password, payload.password);
+      const payload = await userSchema.findOne({
+        $or: [{ email: email }, { name: name }],
+      });
+      !payload && res.status(404).send('User not found');
+
+      const match = await bcrypt.compare(password, payload.password);
       const accessToken = jwt.sign(
         JSON.parse(JSON.stringify(payload)),
         process.env.TOKEN_SECRET,
@@ -96,8 +99,8 @@ export default class UserController {
           })
           .send({ data: payload, message: 'Login Success' });
       else res.send({ message: 'Wrong Password' });
-    } catch (e) {
-      res.send({ error: e });
+    } catch (err) {
+      res.send({ error: err });
     }
   }
 }
