@@ -20,6 +20,12 @@
 - MongoDB for store database
 - Nodemailer for sending mails
 
+## Setup Environment Variables
+
+- Create a `.env` file.
+- Copy ENVs from `.env.example` file and paste them in `.env` file.
+- Replace `your_App_Password` to your actual [App_Password](https://support.google.com/mail/answer/185833?hl=en) in `.env` file.
+
 ## ⚖️ LICENSE
 
 MIT © [Sunny-unik/node-auth](LICENSE)
