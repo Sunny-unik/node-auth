@@ -4,11 +4,11 @@ import UserValidation from '../validations/index.js';
 
 const router = express.Router();
 
-const { getUsers, verifyMailAddress, createUser, loginUser } = UserController;
+const { getUsers, verifyMailAddress, verifyUser, loginUser } = UserController;
 
 router.get('/', getUsers);
-router.post('/verify', UserValidation, verifyMailAddress);
-router.post('/', UserValidation, createUser);
+router.post('/verify', verifyUser);
+router.post('/', UserValidation, verifyMailAddress);
 router.post('/login', loginUser);
 
 export default router;

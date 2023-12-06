@@ -9,6 +9,7 @@ const userSchema = new Schema({
   },
   password: { type: String, required: true },
   email: { type: String, minLength: 5, maxLength: 50, required: true },
+  otp: { type: Number, minLength: 6, maxLength: 6 },
 });
 
 export default mongoose.model('users', userSchema);

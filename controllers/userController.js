@@ -2,12 +2,7 @@ import SendMail from '../services/mailer.js';
 import userSchema from '../models/userSchema.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-const randomNum = Math.floor(Math.random() * 1000000).toString();
-const otp =
-  randomNum.length < 6
-    ? randomNum + Math.floor(Math.random() * 10).toString()
-    : randomNum;
+import otpHelper from '../helper/otpHelper.js';
 
 export default class UserController {
   static async getUsers(req, res) {
@@ -24,10 +19,24 @@ export default class UserController {
       );
   }
 
-  static verifyMailAddress(req, res) {
-    const userData = req.body;
-    console.log(otp);
+  static async createUser(data) {
+    try {
+      const hashPassword = await bcrypt.hash(data.password, 10);
+      const schema = await new userSchema({ ...data, password: hashPassword });
+      return await schema.save();
+    } catch (err) {
+      throw {
+        error: err,
+        TimeStamp: Date(),
+        handlerLocation: 'UserController.createUser',
+      };
+    }
+  }
 
+  static verifyMailAddress(req, res) {
+    const otp = otpHelper.getOtp();
+    const userData = { ...req.body, otp };
+    console.log(otp);
     SendMail(
       process.env.APP_ID,
       process.env.APP_PASSWORD,
@@ -37,38 +46,47 @@ export default class UserController {
       <h3> Your otp is ${otp} </h3><br>
       <h5>We hope you find our service cool.</h5><br>`
     )
-      .then((info) =>
+      .then(async (info) => {
+        try {
+          const user = await UserController.createUser(userData)._doc;
+          res.send({
+            ...info,
+            ...(user ? user : {}),
+            message: 'Otp sent to your mail address, please check.',
+          });
+        } catch (err) {
+          const exactError = err.handlerLocation
+            ? err
+            : {
+                error: err,
+                TimeStamp: Date(),
+                handlerLocation: 'UserController.verifyMailAddress',
+              };
+          res.send(exactError);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
         res.send({
-          ...info,
-          message: 'Otp sent to your mail address, please check.',
-        })
-      )
-      .catch((err) =>
-        res.send({
-          error: err,
+          error: error,
           TimeStamp: Date(),
-          handlerLocation: 'UserController.getUser',
-        })
-      );
+          handlerLocation: 'UserController.verifyMailAddress.SendMail',
+        });
+      });
   }
 
-  static async createUser(req, res) {
+  static async verifyUser(req, res) {
     try {
-      if (otp !== req.body.otp) return res.send({ message: 'Incorrect otp!' });
-
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      const user = await new userSchema({
-        ...req.body,
-        password: hashedPassword,
-      });
-
-      await user.save();
+      const user = await userSchema.updateOne(
+        { $and: [{ otp: req.body.otp }, { _id: req.body.id }] },
+        { $unset: { otp: 1 } }
+      );
       res.send({ data: user });
-    } catch (error) {
+    } catch (err) {
       res.send({
-        error: error,
+        error: err,
         TimeStamp: Date(),
-        handlerLocation: 'UserController.createUser',
+        handlerLocation: 'UserController.verifyUser',
       });
     }
   }
