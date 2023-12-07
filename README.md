@@ -10,6 +10,7 @@
 
 ## Key Features
 
+- Encrypted Passwords
 - Email verification via OTP
 - Secure authentication tokens
 - Session management
