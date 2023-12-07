@@ -32,3 +32,5 @@ app.listen(port, () =>
     'App is live on http://localhost:' + port + ' process_id:' + process.pid
   )
 );
+
+export default app;
