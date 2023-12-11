@@ -27,12 +27,6 @@
 - Copy ENVs from `.env.example` file and paste them in `.env` file.
 - Replace `your_App_Password` to your actual [App_Password](https://support.google.com/mail/answer/185833?hl=en) in `.env` file.
 
-### ENV for setup test (run once then look for test script)
-
-- **bash**: `set NODE_OPTIONS=--experimental-vm-modules && npx jest`
-- **powershell**: `$env:NODE_OPTIONS="--experimental-vm-modules"; npx jest`
-- **cmd**: `set NODE_OPTIONS=--experimental-vm-modules && npx jest`
-
 ## ⚖️ LICENSE
 
 MIT © [Sunny-unik/node-auth](LICENSE)
