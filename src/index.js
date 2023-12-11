@@ -26,7 +26,7 @@ connectDb(); // database connection
 app.get('/', auth, (req, res) => res.send(req.decoded));
 app.use('/user', userRoutes);
 
-app.listen(port, () =>
+const appInstance = app.listen(port, () =>
   console.log(
     '\x1b[34m%s\x1b[0m',
     'App is live on http://localhost:' + port + ' process_id:' + process.pid
@@ -34,3 +34,4 @@ app.listen(port, () =>
 );
 
 export default app;
+export { appInstance };

@@ -1,8 +1,9 @@
-import app from '../index';
+import app, { appInstance } from '../index';
 import request from 'supertest';
 
 describe('GET /user', function () {
   let userId;
+  afterAll(() => appInstance.close());
 
   it('users data with total users count', async function () {
     const response = await request(app).get('/user');
