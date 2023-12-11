@@ -5,8 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
-    "dev": "nodemon index.js",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "cross-env PORT=5001 NODE_OPTIONS='--experimental-vm-modules'; npx jest --watchAll --testTimeout=10000 --detectOpenHandles",
     "coverage": "cross-env PORT=4001 NODE_OPTIONS='--experimental-vm-modules'; jest --coverage --forceExit"
   },
