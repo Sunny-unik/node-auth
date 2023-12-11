@@ -30,7 +30,7 @@ jobs:
         run: npm i
 
       - name: Run tests and collect coverage
-        run: npm t
+        run: node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --forceExit
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
