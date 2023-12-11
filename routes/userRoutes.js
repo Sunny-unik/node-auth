@@ -27,5 +27,9 @@ const responseResolver = async (controller, parameters, res) => {
   const error = result.error;
   res
     .status(error ? 500 : 200)
-    .send(error ? { message: 'Internal Server Error' } : result);
+    .send(
+      error
+        ? { message: error.customMessage || 'Internal Server Error' }
+        : result
+    );
 };

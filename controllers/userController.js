@@ -90,7 +90,12 @@ export default class UserController {
         { $and: [{ otp: otp }, { _id: id }] },
         { $unset: { otp: 1 } }
       );
-      result = { data: user };
+      result = {
+        data: user,
+        error: user.modifiedCount
+          ? undefined
+          : { customMessage: 'Invalid OTP' },
+      };
     } catch (err) {
       result = {
         error: err,
@@ -126,7 +131,7 @@ export default class UserController {
             httpOnly: true,
           })
           .send({ data: payload, message: 'Login Success' });
-      else res.send({ message: 'Wrong Password' });
+      else res.send({ error: { customMessage: 'Wrong Password' } });
     } catch (err) {
       res.send({ error: err });
     }
