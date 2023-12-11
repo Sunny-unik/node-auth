@@ -14,6 +14,13 @@ jobs:
     strategy:
       matrix:
         node: [16, 18]
+    # Setup env for running test
+    env:
+      NODE_ENV: 'test'
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      APP_ID: ${{ secrets.APP_ID }}
+      APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+      TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout repository
