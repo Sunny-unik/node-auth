@@ -4,7 +4,8 @@
 
 > This project is describing that how to implementing an authentication system using Node.js.
 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Sunny-unik/node-auth)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Sunny-unik/node-auth)
+[![Code Coverage Image](https://codecov.io/gh/sunny-unik/node-auth/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Sunny-unik/node-auth)
 
 </div>
 
