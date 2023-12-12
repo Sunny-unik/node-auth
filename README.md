@@ -22,11 +22,13 @@
 - MongoDB for store database
 - Nodemailer for sending mails
 
-## Setup Environment Variables
+## 🤝 Contributing
 
-- Create a `.env` file.
-- Copy ENVs from `.env.example` file and paste them in `.env` file.
-- Replace `your_App_Password` to your actual [App_Password](https://support.google.com/mail/answer/185833?hl=en) in `.env` file.
+We encourage you to contribute to node-auth! All contributors are required to abide by our [Code of Conduct](./docs/Code-of-conduct.md). Please check out the [Contributing guide](./docs/Contributing.md) for guidelines about how to proceed with your contribution. Feel free for start discussion.
+
+## Project Setup
+
+For development setup read [getting started guide](./docs/Getting-started-guide.md)
 
 ## ⚖️ LICENSE
 
