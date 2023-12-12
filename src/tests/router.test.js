@@ -23,6 +23,10 @@ describe('GET /user', function () {
       .set('Accept', 'application/json');
     userId = response.body.id;
     expect(response.status).toEqual(200);
+    expect(typeof response.body.id).toEqual('string');
+    expect(response.body.message).toEqual(
+      'Otp sent to your mail address, please check.'
+    );
   });
 
   it('user update as verified failed because of invalid OTP', async function () {
@@ -34,5 +38,6 @@ describe('GET /user', function () {
       })
       .set('Accept', 'application/json');
     expect(response.status).toEqual(500);
+    expect(response.body.message).toEqual('Invalid OTP');
   });
 });
