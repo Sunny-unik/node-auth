@@ -9,10 +9,26 @@ export default class UserController {
     let result = {};
     await userSchema
       .find()
-      .select(query ? query : '_id name email password')
+      .select(query ? query : '_id name email')
       .then((users) => {
         result = { total: users.length, data: users };
       })
+      .catch((error) => {
+        result = {
+          error,
+          TimeStamp: Date(),
+          handlerLocation: 'UserController.getUsers',
+        };
+      });
+    return result;
+  }
+
+  static async getUser(query, id) {
+    let result = {};
+    await userSchema
+      .findOne({ _id: id })
+      .select(query ? query : '_id name email')
+      .then((user) => (result = { data: user }))
       .catch((error) => {
         result = {
           error,

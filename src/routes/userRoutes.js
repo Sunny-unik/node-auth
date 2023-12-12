@@ -4,10 +4,15 @@ import UserValidation from '../validations/index.js';
 
 const router = express.Router();
 
-const { getUsers, verifyMailAddress, verifyUser, loginUser } = UserController;
+const { getUsers, getUser, verifyMailAddress, verifyUser, loginUser } =
+  UserController;
 
 router.get('/', async (req, res) => {
   await responseResolver(getUsers, [req.query.query], res);
+});
+
+router.get('/:id', async (req, res) => {
+  await responseResolver(getUser, [req.query.query, req.params.id], res);
 });
 
 router.post('/verify', async (req, res) => {
