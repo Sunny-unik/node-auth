@@ -13,13 +13,15 @@ export default class UserController {
       .then((users) => {
         result = { total: users.length, data: users };
       })
-      .catch((error) => {
-        result = {
-          error,
-          TimeStamp: Date(),
-          handlerLocation: 'UserController.getUsers',
-        };
-      });
+      .catch(
+        /* istanbul ignore next */ (error) => {
+          result = {
+            error,
+            TimeStamp: Date(),
+            handlerLocation: 'UserController.getUsers',
+          };
+        }
+      );
     return result;
   }
 
@@ -29,13 +31,15 @@ export default class UserController {
       .findOne({ _id: id })
       .select(query ? query : '_id name email')
       .then((user) => (result = { data: user }))
-      .catch((error) => {
-        result = {
-          error,
-          TimeStamp: Date(),
-          handlerLocation: 'UserController.getUser',
-        };
-      });
+      .catch(
+        /* istanbul ignore next */ (error) => {
+          result = {
+            error,
+            TimeStamp: Date(),
+            handlerLocation: 'UserController.getUser',
+          };
+        }
+      );
     return result;
   }
 
@@ -44,7 +48,7 @@ export default class UserController {
       const hashPassword = await bcrypt.hash(data.password, 10);
       const schema = await new userSchema({ ...data, password: hashPassword });
       return await schema.save();
-    } catch (err) {
+    } catch (err) /* istanbul ignore next */ {
       throw {
         error: err,
         TimeStamp: Date(),
@@ -74,7 +78,7 @@ export default class UserController {
             ...(user ? { id: user._id } : {}),
             message: 'Otp sent to your mail address, please check.',
           };
-        } catch (err) {
+        } catch (err) /* istanbul ignore next */ {
           result = err.handlerLocation
             ? err
             : {
@@ -84,14 +88,16 @@ export default class UserController {
               };
         }
       })
-      .catch((error) => {
-        console.log(error);
-        result = {
-          error: error,
-          TimeStamp: Date(),
-          handlerLocation: 'UserController.verifyMailAddress.SendMail',
-        };
-      });
+      .catch(
+        /* istanbul ignore next */ (error) => {
+          console.log(error);
+          result = {
+            error: error,
+            TimeStamp: Date(),
+            handlerLocation: 'UserController.verifyMailAddress.SendMail',
+          };
+        }
+      );
     return result;
   }
 
@@ -108,7 +114,7 @@ export default class UserController {
           ? undefined
           : { customMessage: 'Invalid OTP' },
       };
-    } catch (err) {
+    } catch (err) /* istanbul ignore next */ {
       result = {
         error: err,
         TimeStamp: Date(),

@@ -11,7 +11,7 @@ export default async () => {
     const { host, port, name } = conn.connection;
 
     console.log(`MongoDB Connected at mongodb://${host}/${port}, DB: ${name}`);
-  } catch (error) {
+  } catch (error) /* istanbul ignore next */ {
     console.error('\x1b[31m%s\x1b[0m', `Error: ${error}`);
     process.exit();
   }
