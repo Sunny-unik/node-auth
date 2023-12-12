@@ -1,8 +1,8 @@
-import SendMail from '../services/mailer.js';
+import SendMail from '../utils/mailer.js';
 import userSchema from '../models/userSchema.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import otpHelper from '../helper/otpHelper.js';
+import { getOtp } from '../utils/helpers.js';
 
 export default class UserController {
   static async getUsers(query) {
@@ -43,7 +43,7 @@ export default class UserController {
 
   static async verifyMailAddress(body) {
     let result = {};
-    const otp = otpHelper.getOtp();
+    const otp = getOtp();
     const userData = { ...body, otp };
     await SendMail(
       process.env.APP_ID,
