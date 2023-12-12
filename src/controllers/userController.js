@@ -26,11 +26,7 @@ export default class UserController {
   static async createUser(data) {
     try {
       const hashPassword = await bcrypt.hash(data.password, 10);
-      const schema = await new userSchema({
-        ...data,
-        password: hashPassword,
-        some: 'invalid',
-      });
+      const schema = await new userSchema({ ...data, password: hashPassword });
       return await schema.save();
     } catch (err) {
       throw {
