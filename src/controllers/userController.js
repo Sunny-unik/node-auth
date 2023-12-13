@@ -125,33 +125,39 @@ export default class UserController {
   }
 
   static async loginUser(req, res) {
-    const { email, name, password } = req.body;
-
     try {
+      const { email, name, password } = req.body;
+      if (!email && !name && !password)
+        return res.status(400).send({ message: 'Invalid Credentials' });
       const payload = await userSchema.findOne({
         $or: [{ email: email }, { name: name }],
       });
-      !payload && res.status(404).send('User not found');
+      if (!payload) return res.status(404).send({ message: 'User not found' });
 
       const match = await bcrypt.compare(password, payload.password);
-      const accessToken = jwt.sign(
-        JSON.parse(JSON.stringify(payload)),
-        process.env.TOKEN_SECRET,
-        { expiresIn: '7d' }
-      );
-
-      if (match)
+      if (match) {
+        const accessToken = jwt.sign(
+          JSON.parse(JSON.stringify(payload)),
+          process.env.TOKEN_SECRET,
+          { expiresIn: '7d' }
+        );
+        const cookieOptions = {
+          sameSite: 'strict',
+          path: '/',
+          expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          httpOnly: true,
+        };
+        const data = { ...payload._doc, password: undefined };
         res
-          .cookie('authToken', accessToken, {
-            sameSite: 'strict',
-            path: '/',
-            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-            httpOnly: true,
-          })
-          .send({ data: payload, message: 'Login Success' });
-      else res.send({ error: { customMessage: 'Wrong Password' } });
+          .cookie('authToken', accessToken, cookieOptions)
+          .send({ data, message: 'Login Success' });
+      } else res.status(400).send({ message: 'Wrong Password' });
     } catch (err) {
-      res.send({ error: err });
+      res.status(500).send({
+        error: err,
+        TimeStamp: Date(),
+        handlerLocation: 'UserController.loginUser',
+      });
     }
   }
 }
