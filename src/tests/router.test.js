@@ -71,7 +71,17 @@ describe('GET /user', function () {
     console.log('POST /user/login success');
   });
 
-  it('user delete success', async function () {
+  it('user logout', async function () {
+    const response = await agent.get('/user/logout');
+    expect(response.status).toEqual(200);
+    expect(response.body.message).toEqual('Logout Successful');
+  });
+
+  it('user login then delete success', async function () {
+    await agent
+      .post('/user/login')
+      .send(signupData)
+      .set('Accept', 'application/json');
     const response = await agent
       .post('/user/delete')
       .send({ userId })

@@ -168,6 +168,15 @@ export default class UserController {
     }
   }
 
+  static logoutUser(_req, res) {
+    try {
+      res.clearCookie('authToken').send({ message: 'Logout Successful' });
+    } catch (error) /* istanbul ignore next */ {
+      console.log(error);
+      res.status(500).send({ error: { message: 'Internal Server Error' } });
+    }
+  }
+
   static async deleteUser(userId) {
     if (!userId) return { error: { customMessage: "User's _id is required!" } };
     try {

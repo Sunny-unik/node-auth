@@ -6,6 +6,8 @@ import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
+router.get('/logout', auth, UserController.logoutUser);
+
 router.get('/', async (req, res) => {
   await responseResolver(UserController.getUsers, [req.query.query], res);
 });
@@ -23,7 +25,7 @@ router.post('/', UserValidation, async (req, res) => {
 });
 
 router.post('/delete', auth, async (req, res) => {
-  await responseResolver(UserController.deleteUser, [req.body.userId], res);
+  await responseResolver(UserController.deleteUser, [req.decoded._id], res);
 });
 
 router.post('/login', UserController.loginUser);
