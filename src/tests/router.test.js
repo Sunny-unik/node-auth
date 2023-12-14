@@ -65,6 +65,14 @@ describe('GET /user', function () {
     expect(response.status).toEqual(200);
     expect(data.password).toEqual(undefined);
     expect(data.name).toEqual('john');
-    console.log(response.status, response.body);
+  });
+
+  it('user delete success', async function () {
+    const response = await request(app)
+      .post('/user/delete')
+      .send({ userId })
+      .set('Accept', 'application/json');
+    expect(response.status).toEqual(200);
+    expect(response.body.message).toEqual('User Deleted');
   });
 });

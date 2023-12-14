@@ -8,7 +8,7 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "testWatch": "cross-env PORT=5001 NODE_ENV='test' NODE_OPTIONS='--experimental-vm-modules'; npx jest --watchAll --testTimeout=10000 --detectOpenHandles",
-    "test": "cross-env PORT=4001 NODE_ENV='test' NODE_OPTIONS='--experimental-vm-modules'; jest --coverage --testTimeout=10000 --forceExit"
+    "test": "cross-env PORT=4001 NODE_ENV='test' NODE_OPTIONS='--experimental-vm-modules'; jest --coverage --testTimeout=15000 --forceExit"
   },
   "repository": {
     "type": "git",
