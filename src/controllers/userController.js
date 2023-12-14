@@ -58,6 +58,17 @@ export default class UserController {
   }
 
   static async verifyMailAddress(body) {
+    try {
+      const isEmailExist = await userSchema.findOne({ email: body.email });
+      if (isEmailExist)
+        return { error: { customMessage: 'Email is already exists' } };
+    } catch (error) /* istanbul ignore next */ {
+      return {
+        error,
+        TimeStamp: Date(),
+        handlerLocation: 'UserController.verifyMailAddress.findOne',
+      };
+    }
     let result = {};
     const otp = getOtp();
     const userData = { ...body, otp };
