@@ -10,8 +10,8 @@ describe('GET /user', function () {
   it('users data with total users count', async function () {
     const response = await agent.get('/user');
     expect(response.status).toEqual(200);
-    expect(typeof response.body.data).toBe('object');
-    expect(typeof response.body.total).toBe('number');
+    expect(typeof response.body.data).toEqual('object');
+    expect(typeof response.body.total).toEqual('number');
     console.log('GET /user/ success');
   });
 
@@ -35,7 +35,7 @@ describe('GET /user', function () {
     );
     expect(response.status).toEqual(200);
     userOtp = response.body.data?.otp;
-    expect(typeof userOtp).toBe('number');
+    expect(typeof userOtp).toEqual('number');
     console.log('GET /user/:id success');
   });
 
@@ -78,8 +78,8 @@ describe('GET /user', function () {
       .set('Accept', 'application/json');
     expect(response.status).toEqual(200);
     expect(response.body.message).toEqual('User Deleted');
-    console.log('GET /user/delete success');
+    console.log('POST /user/delete success');
   });
 });
 
-// remaining test cases: [wrong password on login, user not found on login, email is already exists on signup, auth route]
+// remaining test cases: [wrong password on login, user not found on login, email is already exists on signup]

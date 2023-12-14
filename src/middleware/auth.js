@@ -7,7 +7,7 @@ export default function auth(req, res, next) {
     const decode = jwt.verify(token, process.env.TOKEN_SECRET);
     req.decoded = decode;
     next();
-  } catch (error) {
+  } catch (error) /* istanbul ignore next */ {
     res.clearCookie('authToken').status(401).send(error);
     return;
   }

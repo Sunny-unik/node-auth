@@ -2,6 +2,7 @@ import express from 'express';
 import UserController from '../controllers/userController.js';
 import UserValidation from '../validations/index.js';
 import responseResolver from '../utils/responseResolver.js';
+import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ router.post('/', UserValidation, async (req, res) => {
   await responseResolver(UserController.verifyMailAddress, [req.body], res);
 });
 
-router.post('/delete', async (req, res) => {
+router.post('/delete', auth, async (req, res) => {
   await responseResolver(UserController.deleteUser, [req.body.userId], res);
 });
 
