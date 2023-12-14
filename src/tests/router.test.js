@@ -55,4 +55,16 @@ describe('GET /user', function () {
     expect(response.status).toEqual(200);
     expect(typeof response.body.data).toEqual('object');
   });
+
+  it('user login success', async function () {
+    const response = await request(app)
+      .post('/user/login')
+      .send({ name: 'john', password: '#1Password' })
+      .set('Accept', 'application/json');
+    const data = response.body?.data || {};
+    expect(response.status).toEqual(200);
+    expect(data.password).toEqual(undefined);
+    expect(data.name).toEqual('john');
+    console.log(response.status, response.body);
+  });
 });
