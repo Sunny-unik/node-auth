@@ -137,19 +137,12 @@ export default class UserController {
 
   static async loginUser(req, res) {
     try {
-      const cookieData = jwt.decode(req.cookies.authToken);
-      const { email, name, password } = cookieData ? cookieData : req.body;
-      if (!email && !name && !password)
-        return res.status(400).send({ message: 'Invalid Credentials' });
-      const payload = await userSchema.findOne({
-        $or: [{ email: email }, { name: name }],
-      });
+      const { email, password } = req.body;
+      if (!email) return res.status(400).send({ message: 'Invalid Email' });
+      const payload = await userSchema.findOne({ email: email });
       if (!payload) return res.status(404).send({ message: 'User not found' });
 
-      const match =
-        password === payload.password ||
-        (await bcrypt.compare(password, payload.password));
-      if (match) {
+      if (await bcrypt.compare(password, payload.password)) {
         const accessToken = jwt.sign(
           JSON.parse(JSON.stringify(payload)),
           process.env.TOKEN_SECRET,

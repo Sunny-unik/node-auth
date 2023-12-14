@@ -82,4 +82,4 @@ describe('GET /user', function () {
   });
 });
 
-// remaining test cases: [wrong password on login, user not found on login, email is already exists on signup]
+// remaining test cases: [wrong password on login, email is already exists on signup]
