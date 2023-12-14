@@ -126,7 +126,8 @@ export default class UserController {
 
   static async loginUser(req, res) {
     try {
-      const { email, name, password } = req.body;
+      const cookieData = jwt.decode(req.cookies.authToken);
+      const { email, name, password } = cookieData ? cookieData : req.body;
       if (!email && !name && !password)
         return res.status(400).send({ message: 'Invalid Credentials' });
       const payload = await userSchema.findOne({
@@ -134,7 +135,9 @@ export default class UserController {
       });
       if (!payload) return res.status(404).send({ message: 'User not found' });
 
-      const match = await bcrypt.compare(password, payload.password);
+      const match =
+        password === payload.password ||
+        (await bcrypt.compare(password, payload.password));
       if (match) {
         const accessToken = jwt.sign(
           JSON.parse(JSON.stringify(payload)),
