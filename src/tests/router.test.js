@@ -10,6 +10,7 @@ describe('GET /user', function () {
     expect(response.status).toEqual(200);
     expect(typeof response.body.data).toBe('object');
     expect(typeof response.body.total).toBe('number');
+    console.log('GET /user/ success');
   });
 
   it('user save & sent email for verify mail address', async function () {
@@ -27,6 +28,7 @@ describe('GET /user', function () {
     expect(response.body.message).toEqual(
       'Otp sent to your mail address, please check.'
     );
+    console.log('POST /user/ success');
   });
 
   it('user data with otp', async function () {
@@ -36,6 +38,7 @@ describe('GET /user', function () {
     expect(response.status).toEqual(200);
     userOtp = response.body.data?.otp;
     expect(typeof userOtp).toBe('number');
+    console.log('GET /user/:id success');
   });
 
   it('user update as verified failed because of invalid OTP', async function () {
@@ -45,6 +48,7 @@ describe('GET /user', function () {
       .set('Accept', 'application/json');
     expect(response.status).toEqual(500);
     expect(response.body.message).toEqual('Invalid OTP');
+    console.log('POST /user/verify success 500');
   });
 
   it('user update as verified successfully', async function () {
@@ -54,6 +58,7 @@ describe('GET /user', function () {
       .set('Accept', 'application/json');
     expect(response.status).toEqual(200);
     expect(typeof response.body.data).toEqual('object');
+    console.log('POST /user/verify success');
   });
 
   it('user login success', async function () {
@@ -65,6 +70,7 @@ describe('GET /user', function () {
     expect(response.status).toEqual(200);
     expect(data.password).toEqual(undefined);
     expect(data.name).toEqual('john');
+    console.log('POST /user/login success');
   });
 
   it('user delete success', async function () {
@@ -74,5 +80,6 @@ describe('GET /user', function () {
       .set('Accept', 'application/json');
     expect(response.status).toEqual(200);
     expect(response.body.message).toEqual('User Deleted');
+    console.log('GET /user/delete success');
   });
 });
