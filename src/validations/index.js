@@ -36,11 +36,6 @@ const userValidations = {
 
 export default function UserValidation(req, res, next) {
   !ajv.validate(userValidations, req.body)
-    ? res.status(400).send({
-        error: ajv.errors,
-        TimeStamp: Date(),
-        handlerLocation: 'UserValidation',
-        message: "User data isn't valid",
-      })
+    ? res.status(400).send({ error: ajv.errors, message: 'Invalid user data' })
     : next();
 }
