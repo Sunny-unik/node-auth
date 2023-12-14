@@ -155,12 +155,28 @@ export default class UserController {
           .cookie('authToken', accessToken, cookieOptions)
           .send({ data, message: 'Login Success' });
       } else res.status(400).send({ message: 'Wrong Password' });
-    } catch (err) {
+    } catch (err) /* istanbul ignore next */ {
       res.status(500).send({
         error: err,
         TimeStamp: Date(),
         handlerLocation: 'UserController.loginUser',
       });
+    }
+  }
+
+  static async deleteUser(userId) {
+    if (!userId) return { error: { customMessage: "User's _id is required!" } };
+    try {
+      const result = await userSchema.deleteOne({ _id: userId });
+      return result.deletedCount
+        ? { data: result, message: 'User Deleted' }
+        : { data: result, message: 'User not found' };
+    } catch (error) /* istanbul ignore next */ {
+      return {
+        error,
+        handlerLocation: 'UserController.deleteUser',
+        TimeStamp: Date(),
+      };
     }
   }
 }

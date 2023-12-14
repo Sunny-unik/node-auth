@@ -4,8 +4,14 @@ import UserValidation from '../validations/index.js';
 
 const router = express.Router();
 
-const { getUsers, getUser, verifyMailAddress, verifyUser, loginUser } =
-  UserController;
+const {
+  getUsers,
+  getUser,
+  verifyMailAddress,
+  verifyUser,
+  loginUser,
+  deleteUser,
+} = UserController;
 
 router.get('/', async (req, res) => {
   await responseResolver(getUsers, [req.query.query], res);
@@ -21,6 +27,10 @@ router.post('/verify', async (req, res) => {
 
 router.post('/', UserValidation, async (req, res) => {
   await responseResolver(verifyMailAddress, [req.body], res);
+});
+
+router.post('/delete', async (req, res) => {
+  await responseResolver(deleteUser, [req.body.userId], res);
 });
 
 router.post('/login', loginUser);
