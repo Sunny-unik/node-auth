@@ -75,6 +75,7 @@ describe('GET /user', function () {
     const response = await agent.get('/user/logout');
     expect(response.status).toEqual(200);
     expect(response.body.message).toEqual('Logout Successful');
+    console.log('GET /user/logout success');
   });
 
   it('user login then delete success', async function () {
@@ -82,14 +83,9 @@ describe('GET /user', function () {
       .post('/user/login')
       .send(signupData)
       .set('Accept', 'application/json');
-    const response = await agent
-      .post('/user/delete')
-      .send({ userId })
-      .set('Accept', 'application/json');
+    const response = await agent.post('/user/delete');
     expect(response.status).toEqual(200);
     expect(response.body.message).toEqual('User Deleted');
     console.log('POST /user/delete success');
   });
 });
-
-// remaining test cases: [wrong password on login, email is already exists on signup]
