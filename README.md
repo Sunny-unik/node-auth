@@ -4,9 +4,9 @@
 
 > This project is describing that how to implementing an authentication system using Node.js.
 
-[![Update Coverage Badge](https://github.com/Sunny-unik/node-auth/actions/workflows/coverage.yml/badge.svg)](https://github.com/Sunny-unik/node-auth/actions/workflows/coverage.yml)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Sunny-unik/node-auth)
-[![Code Coverage Image](https://codecov.io/gh/sunny-unik/node-auth/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Sunny-unik/node-auth)
+[![CI Test Badge](https://github.com/Sunny-unik/node-auth/actions/workflows/coverage.yml/badge.svg)](https://github.com/Sunny-unik/node-auth/actions/workflows/coverage.yml)
+[![PRs Welcome Badge](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Sunny-unik/node-auth)
+[![Code Coverage Badge](https://codecov.io/gh/sunny-unik/node-auth/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Sunny-unik/node-auth)
 
 </div>
 
