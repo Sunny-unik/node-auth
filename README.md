@@ -15,7 +15,7 @@
 - Encrypted Passwords
 - Email verification via OTP
 - Secure authentication tokens
-- Session management
+- Stateless Session Management
 
 ## Tech Stack
 
@@ -30,6 +30,10 @@ We encourage you to contribute to node-auth! All contributors are required to ab
 ## Project Setup
 
 For development setup read [getting started guide](./docs/Getting-started-guide.md)
+
+## Code Coverage Graph
+
+![Code Coverage Graph](https://codecov.io/gh/Sunny-unik/node-auth/graphs/sunburst.svg?token=TCC5TM04S0)
 
 ## ⚖️ LICENSE
 
