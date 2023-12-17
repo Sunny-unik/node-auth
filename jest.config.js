@@ -1,7 +1,7 @@
 /** @type {import('jest').Config} */
 
 const config = {
-  modulePaths: ['<rootDir>/src/tests/'],
+  modulePaths: ['<rootDir>/tests/'],
 };
 
 export default config;

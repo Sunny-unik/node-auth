@@ -1,6 +1,6 @@
-import app, { appInstance } from '../index';
+import app, { appInstance } from '../../src/index';
 import request from 'supertest';
-import { signupData } from '../utils/data/testData';
+import { signupData } from '../../src/utils/data/testData';
 
 describe('GET /user', function () {
   const agent = request.agent(app);
